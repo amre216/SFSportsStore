@@ -7,3 +7,4 @@ C:\SRC\SFSportsStore\SFSportsStoreDomain\bin\Debug\EntityFramework.dll
 C:\SRC\SFSportsStore\SFSportsStoreDomain\bin\Debug\EntityFramework.SqlServer.dll
 C:\SRC\SFSportsStore\SFSportsStoreDomain\bin\Debug\EntityFramework.xml
 C:\SRC\SFSportsStore\SFSportsStoreDomain\bin\Debug\EntityFramework.SqlServer.xml
+C:\SRC\SFSportsStore\SFSportsStoreDomain\obj\Debug\SFSportsStore.Domain.csprojResolveAssemblyReference.cache
