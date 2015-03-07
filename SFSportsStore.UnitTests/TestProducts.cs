@@ -30,11 +30,11 @@ namespace SFSportsStore.UnitTests
             });
 
             //New product controller with our mock repo of products
-            ProductController prodContrl = new ProductController(prodRepoMock.Object, 3);
-            
+            ProductController prodContrl = new ProductController(prodRepoMock.Object);
+
             //Act
             //Create enumerable list of products - getting page 2
-            ProductListViewModel result = (ProductListViewModel)prodContrl.List(2).Model; 
+            ProductListViewModel result = (ProductListViewModel)prodContrl.List(null, 2).Model;
 
             //Assert
             Product[] prodArr = result.Products.ToArray();
@@ -67,7 +67,7 @@ namespace SFSportsStore.UnitTests
         {
             //Arrange
             Mock<IProductsRepository> mockProdRepo = new Mock<IProductsRepository>();
-            
+
             mockProdRepo.Setup(m => m.Products).Returns(new Product[]
             {
                 new Product { Name = "P1", ProductId = 1 },
@@ -78,16 +78,49 @@ namespace SFSportsStore.UnitTests
             });
 
             //Arrange 
-            ProductController prodCtrl = new ProductController(mockProdRepo.Object, 3);
+            ProductController prodCtrl = new ProductController(mockProdRepo.Object);
 
             //Act - get product list as ProductListViewModel
-            ProductListViewModel prodAndPagingViewModel = (ProductListViewModel)prodCtrl.List(2).Model; 
+            ProductListViewModel prodAndPagingViewModel = (ProductListViewModel)prodCtrl.List(null, 2).Model;
 
             //Assert
             Assert.AreEqual(prodAndPagingViewModel.PagingInfo.CurrentPage, 2);
             Assert.AreEqual(prodAndPagingViewModel.PagingInfo.ItemsPerPage, 3);
             Assert.AreEqual(prodAndPagingViewModel.PagingInfo.TotalItems, 5);
             Assert.AreEqual(prodAndPagingViewModel.PagingInfo.TotalPages, 2);
+        }
+
+        [TestMethod]
+        public void Can_Filter_Categories()
+        {
+            //Arrange - Create mock product repo.
+            Mock<IProductsRepository> mockRepo = new Mock<IProductsRepository>();
+
+            mockRepo.Setup(m => m.Products).Returns(new Product[] {
+                new Product { Category = "TestCat1", Name = "Cat1Obj1" },
+                new Product { Category = "TestCat1", Name = "Cat1Obj2" },
+                new Product { Category = "TestCat2", Name = "Cat2Obj1" },
+                new Product { Category = "TestCat3", Name = "Cat3Obj1" }
+            });
+
+            //Init product controller
+            ProductController prodControl = new ProductController(mockRepo.Object);
+            
+            //Act
+            Product[] resultTestCatNone = ((ProductListViewModel)prodControl.List(null, 1).Model).Products.ToArray();
+            Product[] resultTestCat1 = ((ProductListViewModel)prodControl.List("TestCat1", 1).Model).Products.ToArray();
+            Product[] resultTestCat3 = ((ProductListViewModel)prodControl.List("TestCat3", 1).Model).Products.ToArray();
+
+            //Assert
+            Assert.IsTrue(resultTestCatNone.Length == 4);
+            Assert.IsTrue(resultTestCatNone[0].Name == "Cat1Obj1");
+            Assert.IsTrue(resultTestCatNone[1].Name == "Cat1Obj2");
+            Assert.IsTrue(resultTestCat1.Length == 2);
+            Assert.IsTrue(resultTestCat1[0].Name == "Cat1Obj1");
+            Assert.IsTrue(resultTestCat1[1].Name == "Cat1Obj2");
+            Assert.IsTrue(resultTestCat3.Length == 1);
+            Assert.IsTrue(resultTestCat3[0].Name == "Cat3Obj1");
+            
         }
     }
 

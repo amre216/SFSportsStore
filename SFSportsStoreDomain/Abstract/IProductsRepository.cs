@@ -5,6 +5,7 @@ namespace SFSportsStore.Domain.Abstract
 {
     public interface IProductsRepository
     {
+        //Interface for implementing a repository / collection of Products
         IEnumerable<Product> Products { get; }
     }
 }

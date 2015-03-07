@@ -7,30 +7,33 @@ namespace SFSportsStore.WebUI.HtmlHelpers
 {
     public static class PagingHelpers
     {
-        public static MvcHtmlString PageLinks(this HtmlHelper html, PagingInfo pagingInfo, Func<int, string> pageUrl)
+
+        //HTML paging helper - HTML helper ext: takes paging info and delegate (int as param returns string) for url building.
+        public static MvcHtmlString PageLinks(this HtmlHelper htmlHelper, PagingInfo pagingInfo, Func<int, string> urlBuildDelg)
         {
-            StringBuilder result = new StringBuilder();
-            //For each page
-            for (int i = 1; i <= pagingInfo.TotalPages; i++)
+            //Init stringbuilder - to build result string
+            StringBuilder resultString = new StringBuilder();
+
+            //For each page in paging info
+            for(int i = 1; i <= pagingInfo.TotalPages; i++)
             {
-                //Create a new a tag
-                TagBuilder tag = new TagBuilder("a");
-                //Passed page url function - to create the urls pass it value of i
-                tag.MergeAttribute("href", pageUrl(i));
-                //Display page number
-                tag.InnerHtml = i.ToString();
-                //If this is the current page
+                //Create a new anchor tag
+                TagBuilder htmlTag = new TagBuilder("a");
+                //Add the href attr to the attrs of the html tag - using the passed func (delg) to build the value - takes int as param and returns a string
+                htmlTag.MergeAttribute("href", urlBuildDelg(i));
+                //If the current page in pagingInfo matches the current iteration of pages in paging info
                 if (i == pagingInfo.CurrentPage)
                 {
-                    tag.AddCssClass("selected");
-                    tag.AddCssClass("btn-primary");
+                    htmlTag.AddCssClass("btn-primary selected");
                 }
-                tag.AddCssClass("btn btn-default");
-                //Append each page link to result
-                result.Append(tag.ToString());
+                htmlTag.AddCssClass("btn btn-default");
+                //Set the page numer display
+                htmlTag.InnerHtml = i.ToString();
+                //Append the current tag to the result string
+                resultString.Append(htmlTag.ToString());
             }
-            //Return HTLM
-            return MvcHtmlString.Create(result.ToString());
+            //Create mvc html string passing the stringbuilder converted to string
+            return MvcHtmlString.Create(resultString.ToString());
         }
     }
 }

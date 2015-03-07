@@ -1,0 +1,15 @@
+﻿@using SFSportsStore.WebUI.Models
+@model CategoryMenuViewModel
+
+@Html.ActionLink("Home", "List", "Product", null, new { @class = "btn btn-block btn-default btn-lg"} )
+
+@foreach (string category in Model.categories)
+{
+    
+    @Html.RouteLink(
+        category, 
+        new { controller = "Product", action = "list", currentCategory = category, page = 1 },
+        new { @class = "btn btn-block btn-default btn-lg" + (category == Model.currentCategory ? " btn-primary" : "") }
+    )
+}
+

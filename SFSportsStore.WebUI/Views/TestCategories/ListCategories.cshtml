@@ -1,0 +1,13 @@
+﻿@using SFSportsStore.Domain.Entities;
+@model IEnumerable<Category>
+
+@{
+    ViewBag.Title = "ListCategories";
+}
+
+@foreach (Category cat in Model)
+{
+    <h1>@cat.Name</h1>
+    <p>@cat.Description</p>
+    <hr />
+}

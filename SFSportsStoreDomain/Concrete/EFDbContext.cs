@@ -1,13 +1,16 @@
-﻿using SFSportsStore.Domain.Entities;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
+using SFSportsStore.Domain.Entities;
+
 
 namespace SFSportsStore.Domain.Concrete
 {
-    //Creates a database context class
-    public class EFDbContext : DbContext
+    public class EFDBContext : DbContext
     {
-        //Creates a binding in this context where Products objects represent rows in the products table
+        //Database context - relationship between Products table in context resolving each row as a Product obj.
+        //Property is a databaset (enumerable collection) of product objects - Type is object resolved to from Table (property name)
         public DbSet<Product> Products { get; set; }
-    }
 
+        public DbSet<Category> TestCategories { get; set; }
+    }
 }

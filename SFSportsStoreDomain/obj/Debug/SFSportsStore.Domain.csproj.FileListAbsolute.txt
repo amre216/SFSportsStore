@@ -1,10 +1,9 @@
+C:\SRC\SFSportsStore\SFSportsStoreDomain\bin\Debug\SFSportsStore.Domain.dll.config
 C:\SRC\SFSportsStore\SFSportsStoreDomain\bin\Debug\SFSportsStore.Domain.dll
 C:\SRC\SFSportsStore\SFSportsStoreDomain\bin\Debug\SFSportsStore.Domain.pdb
-C:\SRC\SFSportsStore\SFSportsStoreDomain\obj\Debug\SFSportsStore.Domain.dll
-C:\SRC\SFSportsStore\SFSportsStoreDomain\obj\Debug\SFSportsStore.Domain.pdb
-C:\SRC\SFSportsStore\SFSportsStoreDomain\bin\Debug\SFSportsStore.Domain.dll.config
 C:\SRC\SFSportsStore\SFSportsStoreDomain\bin\Debug\EntityFramework.dll
 C:\SRC\SFSportsStore\SFSportsStoreDomain\bin\Debug\EntityFramework.SqlServer.dll
 C:\SRC\SFSportsStore\SFSportsStoreDomain\bin\Debug\EntityFramework.xml
 C:\SRC\SFSportsStore\SFSportsStoreDomain\bin\Debug\EntityFramework.SqlServer.xml
-C:\SRC\SFSportsStore\SFSportsStoreDomain\obj\Debug\SFSportsStore.Domain.csprojResolveAssemblyReference.cache
+C:\SRC\SFSportsStore\SFSportsStoreDomain\obj\Debug\SFSportsStore.Domain.dll
+C:\SRC\SFSportsStore\SFSportsStoreDomain\obj\Debug\SFSportsStore.Domain.pdb

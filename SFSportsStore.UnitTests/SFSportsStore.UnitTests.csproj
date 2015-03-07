@@ -95,7 +95,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="CartTest.cs" />
     <Compile Include="MockTesting.cs" />
+    <Compile Include="TestCategories.cs" />
     <Compile Include="TestProducts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

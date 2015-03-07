@@ -5,13 +5,10 @@
     ViewBag.Title = "Products";
 }
 
-@foreach (var prod in Model.Products)
+@foreach (Product prod in Model.Products)
 {
-    <div>
-        <h3>@prod.Name</h3>
-        <p>@prod.Description</p>
-        <h3>@prod.Price.ToString("c")</h3>
-    </div>
+    @Html.Partial("ProductSummary", prod);
 }
-
-<div>@Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x }))</div>
+<div class="pull-right btn-group">
+    @Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x, currentCategory = Model.CurrentCategory }))
+</div>

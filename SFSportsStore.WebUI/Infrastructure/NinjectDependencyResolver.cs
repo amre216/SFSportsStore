@@ -55,7 +55,9 @@ namespace SFSportsStore.WebUI.Infrastructure
             //kernel.Bind<IProductsRepository>().ToConstant(mockProdList.Object);
 
             //Binding: Services implementing IProductsRepository will resolve to the entity framework product repository
-            kernel.Bind<IProductsRepository>().To<EFProductRepository>();
+            kernel.Bind<IProductsRepository>().To<EFProductsRepository>();
+
+            kernel.Bind<ICategoryRepository>().To<EFCategoryRepository>();
         }
     }
 }

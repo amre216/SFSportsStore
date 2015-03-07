@@ -11,27 +11,28 @@ namespace SFSportsStore.WebUI.Controllers
 {
     public class ProductController : Controller
     {
+        private IProductsRepository _products;
+        private PagingInfo _pageingInfo;
+        private ProductListViewModel _prodListViewModel;
+        private int _pageSize = 3;
 
-        private IProductsRepository _prodRepo;
-        private int _pageSize = 4;
-
-        //On init of product controller accept product interface - resolves to mock list of products
-        public ProductController(IProductsRepository prodRepoParam, int pageSize = 3)
+        public ProductController(IProductsRepository prodRepo)
         {
-            this._prodRepo = prodRepoParam;
-            this._pageSize = pageSize;
+            _products = prodRepo;
+            
         }
 
-        public ViewResult List(int page = 1)
+        public ViewResult List(string currentCategory, int page = 1)
         {
-            //Init pageview model with product list and pagination settings
-            ProductListViewModel listViewPageModel = new ProductListViewModel
-            {
-                Products = _prodRepo.Products.OrderBy(p => p.ProductId).Skip((page - 1) * _pageSize).Take(_pageSize),
-                PagingInfo = new PagingInfo { CurrentPage = page, ItemsPerPage = _pageSize, TotalItems = _prodRepo.Products.Count() }
+            _pageingInfo = new PagingInfo { CurrentPage = page, ItemsPerPage = _pageSize, TotalItems = _products.Products.Where(p => currentCategory == null || currentCategory.ToLower() == p.Category.ToLower()).Count() };
+
+            _prodListViewModel = new ProductListViewModel { 
+                PagingInfo = _pageingInfo,
+                Products = _products.Products.Where(p => currentCategory == null || currentCategory.ToLower() == p.Category.ToLower()).OrderBy(p => p.ProductId).Skip(page - 1).Take(_pageSize), 
+                CurrentCategory = currentCategory 
             };
 
-            return View(listViewPageModel);
+            return View(_prodListViewModel);
         }
 
     }
