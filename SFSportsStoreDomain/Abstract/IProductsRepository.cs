@@ -7,5 +7,11 @@ namespace SFSportsStore.Domain.Abstract
     {
         //Interface for implementing a repository / collection of Products
         IEnumerable<Product> Products { get; }
+
+        //Save product
+        void SaveProduct(Product prod);
+
+        //Delete product
+        void DeleteProduct(Product prod);
     }
 }

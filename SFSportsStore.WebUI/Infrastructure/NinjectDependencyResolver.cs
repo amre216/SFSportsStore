@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System.Configuration;
 using Ninject;
 using Moq;
 using SFSportsStore.Domain.Entities;
@@ -58,6 +59,13 @@ namespace SFSportsStore.WebUI.Infrastructure
             kernel.Bind<IProductsRepository>().To<EFProductsRepository>();
 
             kernel.Bind<ICategoryRepository>().To<EFCategoryRepository>();
+
+            EmailSettings emailSettings = new EmailSettings()
+            {
+                WriteAsFile = bool.Parse(ConfigurationManager.AppSettings["Email.WriteAsFile"] ?? "false")
+            };
+
+            kernel.Bind<IOrderProcessor>().To<EmailOrderProcessor>().WithConstructorArgument("settings", emailSettings);
         }
     }
 }
